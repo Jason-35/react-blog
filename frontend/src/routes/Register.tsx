@@ -1,22 +1,13 @@
-import { Link } from "react-router-dom"
+import { Form, Link, useActionData } from "react-router-dom"
 import '../styles/Register.css'
-import { TextField } from "@mui/material"
-import { useState } from 'react'
-import axios from 'axios'
+import { Alert, TextField } from "@mui/material"
 
 export default function Register(){
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    
-    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const info = { username, password}
-        const ha = await axios.get('http://localhost:3000/api/woo')
-        console.log(ha)
-        console.log(`user ${info.username} registered with ${password}`)
-    }
+    const data = useActionData() as {msg: string}
 
     return <div className="container text-white">
+        {data ? <p>{data.msg}</p> : <></>}
+        { data ? <Alert severity="error">this username already exist!</Alert> : <></>}
         <nav className="nav-banner text-white">
             <ul className="nav-2-items">
                 <li className="icon">Blogger</li>
@@ -25,30 +16,32 @@ export default function Register(){
         </nav>
         <div className="sub-container register-sub-container font-fam-roboto register-form">
             <div className="form-container">
-            <form className="UILoginSignupForm circle-corner-left" onSubmit={handleSubmit}>
+            <Form className="UILoginSignupForm circle-corner-left" method="post" action="/register">
                 <div className="register-text">
                     <h1>Sign up for your account 😎</h1>
                 </div>
                 <div className="input-container">
                     <TextField
                         label="Username"
+                        name="Username"
                         variant="filled"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
-                        onChange={(e) => setUsername(e.target.value)}
+                        // onChange={(e) => setUsername(e.target.value)}
                         required={true}
                     />
                     <TextField
                         id="filled-basic"
                         label="Password"
+                        name="Password"
                         variant="filled"
                         type="password"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
-                        onChange={(e) => setPassword(e.target.value)}
+                        // onChange={(e) => setPassword(e.target.value)}
                         required={true}
                     />
                 </div>
-                <button className="press-button">Continue</button>
-            </form>
+                <button className="press-button" type="submit">Continue</button>
+            </Form>
             <div className="register-form-pic circle-corner-right"></div>
             </div>
         </div>

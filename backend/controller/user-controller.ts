@@ -26,6 +26,6 @@ export const register = async(req: Request, res: Response): Promise<void> => {
         await user.save()
         res.status(200).json({ success: "registered user"})
     } catch (error) {
-        res.status(409).json({ error: "duplicate username"})
+        res.status(409).json({ error: "duplicate", status: 409, dup: true})
     }
 }

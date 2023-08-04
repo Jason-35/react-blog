@@ -4,6 +4,7 @@ import Homepage from './routes/Homepage.tsx';
 import Login from './routes/Login.tsx';
 import Register from './routes/Register.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { action as registerAction } from "./actions/RegisterAction.tsx"
 import './styles/Global.css'
 import './styles/Reuse.css'
 
@@ -13,16 +14,21 @@ const router = createBrowserRouter([
     element: <Homepage/>,
   },
   {
-    path: "/Login",
+    path: "/login",
     element: <Login/>
   },
   {
-    path: "/Register",
+    path: "/register",
     element: <Register/>,
+    action: registerAction,
   },
   {
     path: "/user/:userId",
     element: <>User's page</>,
+  },
+  {
+    path: "/dashboard",
+    element: <>Dashboard page</>,
   },
 ]);
 
