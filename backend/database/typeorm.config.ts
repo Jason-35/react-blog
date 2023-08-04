@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm"
 import { User } from "../entities/User"
-const connectDB = (username, password, database) => {
-    const AppDataSource = new DataSource({
+export const connectDB = (username: string, password: string, database: string): void => {
+    const AppDataSource: DataSource = new DataSource({
         type: "mysql",
         host: "localhost",
         port: 3306,
@@ -9,7 +9,7 @@ const connectDB = (username, password, database) => {
         password: password,
         database: database,
         entities: [User],
-        synchronize: true
+        synchronize: true,
     })
 
     AppDataSource.initialize()
@@ -19,8 +19,4 @@ const connectDB = (username, password, database) => {
     .catch((err) => {
         console.error("Couldn't connect to blogdb", err)
     })
-}
-
-module.exports = {
-    connectDB
 }

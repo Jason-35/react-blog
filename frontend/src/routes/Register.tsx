@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import '../styles/Register.css'
 import { TextField } from "@mui/material"
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function Register(){
     const [username, setUsername] = useState("")
@@ -10,7 +11,9 @@ export default function Register(){
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const info = { username, password}
-        console.log(`user ${info.username} registered with ${password}}`)
+        const ha = await axios.get('http://localhost:3000/api/woo')
+        console.log(ha)
+        console.log(`user ${info.username} registered with ${password}`)
     }
 
     return <div className="container text-white">

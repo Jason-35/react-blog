@@ -1,17 +1,26 @@
 require('dotenv').config()
-const express = require('express')
-const app = express()
-const user = require('../controller/user-controller')
-const db = require('../database/typeorm.config')
+import express, { Express, Request, Response } from 'express';
+import * as user from '../controller/user-controller'
+import * as db from '../database/typeorm.config'
+import cors from 'cors';
+
+const app: Express = express();
 
 db.connectDB(process.env.MYSQL_USERNAME, process.env.MYSQL_PASSWORD, process.env.MYSQL_DATABASE)
 
-app.get('/k', (req, res) => {
-    res.send('Hello World!')
+// Middleware
+app.use(cors())
+app.use(express.json());
+
+
+// Api endpoints
+app.get('/api/register', user.register)
+
+app.get('/api/woo', (req: Request, res: Response) => {
+    res.send("hohohohoho")
 })
 
-app.get('/m', user.register)
-
+// Hosting
 app.listen(process.env.HOST, ()=>{
     console.log(`Hosting on PORT ${process.env.HOST}`)
 })
