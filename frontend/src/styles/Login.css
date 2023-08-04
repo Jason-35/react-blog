@@ -1,0 +1,23 @@
+.login-sub-container{
+    background-image: url("../assets/flat-lay-desktop-with-notebook-succulent.jpg");
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-pic{
+    background-image: url("../assets/side-view-employee-working-laptop.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50%;
+    height: 100%;
+}
+
+.login-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    height: 15%;
+}
