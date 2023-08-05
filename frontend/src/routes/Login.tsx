@@ -1,19 +1,15 @@
-import { Link } from "react-router-dom"
+import { Form, Link, useActionData } from "react-router-dom"
 import '../styles/Login.css'
 import TextField from "@mui/material/TextField/TextField"
-import { useState } from 'react'
+import { Alert } from "@mui/material"
+// import { useState } from 'react'
 
 export default function Login(){
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log(`user ${username} with password ${password} has logged in`)
-    }
+    const data = useActionData() as {invalid: boolean}
 
     return (
     <div className="container text-white">
+        {data && data.invalid ? <Alert severity="error">incorrect credentials</Alert> : <></>}
         <nav className="nav-banner text-white">
             <ul className="nav-2-items">
                 <li className="icon">Blogger</li>
@@ -22,7 +18,7 @@ export default function Login(){
         </nav>
         <div className="sub-container login-sub-container font-fam-roboto register-form">
             <div className="form-container">
-            <form className="UILoginSignupForm circle-corner-left" onSubmit={handleSubmit}>
+            <Form className="UILoginSignupForm circle-corner-left"  method="post" action="/login">
                 <div className="login-text">
                     <h1>Welcome Back 😎</h1>
                     <p>Please enter your details</p>
@@ -30,23 +26,24 @@ export default function Login(){
                 <div className="input-container">
                     <TextField
                         label="Username"
+                        name="Username"
+                        type="username"
                         variant="filled"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
-                        onChange={(e) => setUsername(e.target.value)}
                         required={true}
                     />
                     <TextField
                         id="filled-basic"
                         label="Password"
+                        name="Password"
                         variant="filled"
                         type="password"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
-                        onChange={(e) => setPassword(e.target.value)}
                         required={true}
                     />
                 </div>
-                <button className="press-button">Continue</button>
-            </form>
+                <button className="press-button" type="submit" name="intent" value="login">Continue</button>
+            </Form>
             <div className="login-form-pic circle-corner-right"></div>
             </div>
         </div>

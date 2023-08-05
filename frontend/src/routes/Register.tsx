@@ -3,10 +3,9 @@ import '../styles/Register.css'
 import { Alert, TextField } from "@mui/material"
 
 export default function Register(){
-    const data = useActionData() as {msg: string}
+    const data = useActionData()
 
     return <div className="container text-white">
-        {data ? <p>{data.msg}</p> : <></>}
         { data ? <Alert severity="error">this username already exist!</Alert> : <></>}
         <nav className="nav-banner text-white">
             <ul className="nav-2-items">
@@ -26,7 +25,6 @@ export default function Register(){
                         name="Username"
                         variant="filled"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
-                        // onChange={(e) => setUsername(e.target.value)}
                         required={true}
                     />
                     <TextField
@@ -36,11 +34,10 @@ export default function Register(){
                         variant="filled"
                         type="password"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
-                        // onChange={(e) => setPassword(e.target.value)}
                         required={true}
                     />
                 </div>
-                <button className="press-button" type="submit">Continue</button>
+                <button className="press-button" type="submit" name="intent" value="register">Continue</button>
             </Form>
             <div className="register-form-pic circle-corner-right"></div>
             </div>

@@ -15,6 +15,7 @@ app.use(express.json());
 
 // Api endpoints
 app.post('/api/register', user.register)
+app.post('/api/login', user.login)
 
 app.get('/api/woo', (req: Request, res: Response) => {
     res.send("hohohohoho")

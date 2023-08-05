@@ -4,7 +4,8 @@ import Homepage from './routes/Homepage.tsx';
 import Login from './routes/Login.tsx';
 import Register from './routes/Register.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { action as registerAction } from "./actions/RegisterAction.tsx"
+import { action as userAction } from "./actions/UserAction.tsx"
+// import { action as loginAction } from "./actions/LoginAction.tsx"
 import './styles/Global.css'
 import './styles/Reuse.css'
 
@@ -15,12 +16,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login/>
+    element: <Login/>,
+    action: userAction
   },
   {
     path: "/register",
     element: <Register/>,
-    action: registerAction,
+    action: userAction,
   },
   {
     path: "/user/:userId",
