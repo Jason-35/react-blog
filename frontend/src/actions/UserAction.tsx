@@ -8,8 +8,6 @@ export async function action({ request } : {request: Request}) {
     const username = formData.get('Username')
     const password = formData.get('Password')
 
-    console.log(intent, username, password)
-
     if(intent === 'register'){
         
         const result = await axios.post('http://localhost:4000/api/register', {username: username, password: password}).then(() => {
@@ -32,7 +30,6 @@ export async function action({ request } : {request: Request}) {
         }
     }else if(intent === 'login'){
         const result = await axios.post('http://localhost:4000/api/login', {username: username, password: password}).then(() => {
-            console.log("far")
             return redirect("/dashboard")
         }).catch((err) => {
             const { status } = err.response.data

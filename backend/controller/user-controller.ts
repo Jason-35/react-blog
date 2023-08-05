@@ -1,9 +1,7 @@
 import { User } from "../entities/User"
 import { Request, Response } from 'express';
-import { DataSource } from "typeorm"
-import { getRepository } from 'typeorm';
 
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 /**
  * Encrypting the user's password
@@ -59,7 +57,9 @@ export const login = async(req: Request, res: Response): Promise<void> => {
         const comparePassword = await bcrypt.compare(password, user.password)
     
         if(comparePassword){
-            res.status(200).json({status: 200, valid: true})
+            req.session.authenticated = true
+            req.session.username = username
+            res.status(200).json({status: 200, valid: true, session: req.session})
         }else{
             res.status(401).json({error: "invalid", status: 401, valid: false})
         }
@@ -67,3 +67,22 @@ export const login = async(req: Request, res: Response): Promise<void> => {
         res.status(401).json({error: "invalid", status: 401, valid: false})
     }
 }
+
+
+export const test = async(req: Request, res: Response): Promise<void> => {
+    const { username, password } = req.body
+    if(username && password){
+        if(password == "123"){
+            req.session.authenticated = true
+            req.session.username = username
+            res.json(req.session)
+        }
+        else{
+            res.status(401).json({msg: "bad credentials"})
+        }
+    }
+    res.status(200)
+}
+
+
+
