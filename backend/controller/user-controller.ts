@@ -2,6 +2,7 @@ import { User } from "../entities/User"
 import { Request, Response } from 'express';
 
 import bcrypt from 'bcrypt';
+import session from "express-session";
 
 /**
  * Encrypting the user's password
@@ -29,12 +30,16 @@ export const register = async(req: Request, res: Response): Promise<void> => {
     
     const user: User = User.create({
         username: username,
-        password: hashedPassword
+        password: hashedPassword,
+        session: req.sessionID
     })
 
     try {
         await user.save()
-        res.status(200).json({ success: "registered user"})
+        // create cookie and session id and save it to the db
+        req.session.authenticated = true
+        req.session.username = username
+        res.status(200).send(req.sessionID)
     } catch (error) {
         res.status(409).json({ error: "duplicate", status: 409, dup: true})
     }
@@ -49,7 +54,7 @@ export const login = async(req: Request, res: Response): Promise<void> => {
     const { username, password } : { username: string, password: string } = req.body
 
     const user = await User.findOne({
-        where: {
+        where: { 
             username: username
         }
     })
@@ -59,7 +64,13 @@ export const login = async(req: Request, res: Response): Promise<void> => {
         if(comparePassword){
             req.session.authenticated = true
             req.session.username = username
-            res.status(200).json({status: 200, valid: true, session: req.session})
+            user.session = req.sessionID
+    
+            await User.save({
+                ...user,
+            })
+
+            res.status(200).send(req.sessionID)
         }else{
             res.status(401).json({error: "invalid", status: 401, valid: false})
         }
@@ -68,20 +79,27 @@ export const login = async(req: Request, res: Response): Promise<void> => {
     }
 }
 
+/**
+ * Logout user by removing session from database
+ * @param req request
+ * @param res response
+ */
+export const logout = async(req: Request, res:Response) => {
+    const user = await User.findOne({
+        where: { 
+            session: req.sessionID
+        }
+    })
 
-export const test = async(req: Request, res: Response): Promise<void> => {
-    const { username, password } = req.body
-    if(username && password){
-        if(password == "123"){
-            req.session.authenticated = true
-            req.session.username = username
-            res.json(req.session)
-        }
-        else{
-            res.status(401).json({msg: "bad credentials"})
-        }
-    }
-    res.status(200)
+    user.session = null
+    req.session.authenticated = false
+    req.session.username = null
+
+    await User.save({
+        ...user,
+    })
+
+    res.send({user: user, req: req.session})
 }
 
 

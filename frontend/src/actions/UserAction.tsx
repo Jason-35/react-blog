@@ -10,7 +10,7 @@ export async function action({ request } : {request: Request}) {
 
     if(intent === 'register'){
         
-        const result = await axios.post('http://localhost:4000/api/register', {username: username, password: password}).then(() => {
+        const result = await axios.post('http://localhost:4000/api/register', {username: username, password: password}, { withCredentials: true }).then(() => {
             return redirect("/dashboard")
         }).catch((err) => {
             const { status } = err.response.data
@@ -29,7 +29,7 @@ export async function action({ request } : {request: Request}) {
             return redirect("/dashboard")
         }
     }else if(intent === 'login'){
-        const result = await axios.post('http://localhost:4000/api/login', {username: username, password: password}).then(() => {
+        const result = await axios.post('http://localhost:4000/api/login', {username: username, password: password}, { withCredentials: true }).then(() => {
             return redirect("/dashboard")
         }).catch((err) => {
             const { status } = err.response.data
