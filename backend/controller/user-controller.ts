@@ -7,7 +7,7 @@ import session from "express-session";
 /**
  * Encrypting the user's password
  * @param password inputted password
- * @returns 
+ * @returns the hashed password as a promise
  */
 const hashing = async(password: string): Promise<string> => {
     const saltRounds: number = 10
@@ -39,7 +39,7 @@ export const register = async(req: Request, res: Response): Promise<void> => {
         // create cookie and session id and save it to the db
         req.session.authenticated = true
         req.session.username = username
-        res.status(200).send(req.sessionID)
+        res.status(200).send(req.session)
     } catch (error) {
         res.status(409).json({ error: "duplicate", status: 409, dup: true})
     }
@@ -69,8 +69,8 @@ export const login = async(req: Request, res: Response): Promise<void> => {
             await User.save({
                 ...user,
             })
-
-            res.status(200).send(req.sessionID)
+            console.log(req.sessionID)
+            res.status(200).send(req.session)
         }else{
             res.status(401).json({error: "invalid", status: 401, valid: false})
         }
@@ -99,7 +99,7 @@ export const logout = async(req: Request, res:Response) => {
         ...user,
     })
 
-    res.send({user: user, req: req.session})
+    res.status(200).send({user: user, req: req.session})
 }
 
 

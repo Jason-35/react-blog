@@ -1,18 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Homepage from './routes/Homepage.tsx';
+import LandingPage from './routes/LandingPage.tsx';
 import Login from './routes/Login.tsx';
 import Register from './routes/Register.tsx';
+import Homepage from './routes/Homepage.tsx';
+import Navbar from './routes/Navbar.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { action as userAction } from "./actions/UserAction.tsx"
-// import { action as loginAction } from "./actions/LoginAction.tsx"
+// import Root, { loader as rootLoader } from "./routes/root";
+import { loader as userLoader } from "./loaders/UserLoader.tsx"
 import './styles/Global.css'
 import './styles/Reuse.css'
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Homepage/>,
+    element: <LandingPage/>,
   },
   {
     path: "/login",
@@ -29,8 +34,21 @@ const router = createBrowserRouter([
     element: <>User's page</>,
   },
   {
-    path: "/dashboard",
-    element: <>Dashboard page</>,
+    path: "/",
+    element: <Navbar/>,
+    loader: userLoader,
+    action: userAction,
+    errorElement: <>Error no access here boi</>,
+    children: [
+      {
+        path: "home/:username",
+        element: <Homepage/>,
+      },
+      {
+        path: "home/:username/community",
+        element: <p>community page</p>,
+      }
+    ]
   },
 ]);
 

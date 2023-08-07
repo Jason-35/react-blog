@@ -8,10 +8,10 @@ export async function action({ request } : {request: Request}) {
     const username = formData.get('Username')
     const password = formData.get('Password')
 
-    if(intent === 'register'){
-        
-        const result = await axios.post('http://localhost:4000/api/register', {username: username, password: password}, { withCredentials: true }).then(() => {
-            return redirect("/dashboard")
+    if(intent === 'register')
+    {    
+        const result = await axios.post('http://localhost:4000/api/register', {username: username, password: password}, { withCredentials: true }).then((e) => {
+            return e.data
         }).catch((err) => {
             const { status } = err.response.data
             if (status === 409){
@@ -26,11 +26,15 @@ export async function action({ request } : {request: Request}) {
         if (dup){
             return true
         }else{
-            return redirect("/dashboard")
+            localStorage.setItem("authenticated", result.authenticated)
+            localStorage.setItem("username", result.username)
+            return redirect(`/home/${result.username}`)
         }
-    }else if(intent === 'login'){
-        const result = await axios.post('http://localhost:4000/api/login', {username: username, password: password}, { withCredentials: true }).then(() => {
-            return redirect("/dashboard")
+    }
+    else if(intent === 'login')
+    {
+        const result = await axios.post('http://localhost:4000/api/login', {username: username, password: password}, { withCredentials: true }).then((e) => {
+            return e.data
         }).catch((err) => {
             const { status } = err.response.data
             if (status === 401){
@@ -41,14 +45,20 @@ export async function action({ request } : {request: Request}) {
         })
 
         const { valid } = result as {valid: boolean}
+
+
         if (valid === false){
             return {invalid : true}
         }else{
-            return redirect("/dashboard")
+            localStorage.setItem("authenticated", result.authenticated)
+            localStorage.setItem("username", result.username)
+            return redirect(`/home/${result.username}`)
         }
+    }else
+    {
+        return null
     }
 
-    return null
 
 }
 

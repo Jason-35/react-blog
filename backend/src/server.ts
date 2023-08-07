@@ -33,6 +33,9 @@ app.use(
       secret: 'your_secret_key_here',
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        sameSite: 'strict'
+      }
     })
 );
 
