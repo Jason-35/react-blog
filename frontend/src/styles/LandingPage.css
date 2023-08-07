@@ -1,0 +1,13 @@
+.home-sub-container{
+    background-image: url("../assets/top-view-chinese-ink-concept.jpg");
+    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.home-text {
+    font-size: 3rem; 
+}
+
+.register {
+    font-size: 3rem;
+}
