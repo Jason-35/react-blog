@@ -22,18 +22,17 @@ export default function Navbar(){
                 <li><Link to={`/home/${username}`}><button className="u-button font-size-1-5rm">{ username }</button></Link></li>
                 </div>
                 <div className="middle-nav">
-                    <li><Link to={'/login'}><button className="u-button font-size-1-5rm">Blog</button></Link></li>
-                    <li><Link to={'/login'}><button className="u-button font-size-1-5rm">Browse</button></Link></li>
-                    <li><Link to={'/login'}><button className="u-button font-size-1-5rm">Community</button></Link></li>
+                    <li><Link to={'/home/browse?page=1'}><button className="u-button font-size-1-5rm">Browse</button></Link></li>
+                    <li><Link to={`/home/${username}/create`}><button className="u-button font-size-1-5rm">Blog</button></Link></li>
+                    <li><Link to={`/home/${username}/collection`}><button className="u-button font-size-1-5rm">Collections</button></Link></li>
+                    <li><Link to={'/home/community?page=1'}><button className="u-button font-size-1-5rm">Community</button></Link></li>
                 </div>
                 <div className="last-nav">
                 <li><button className="u-button font-size-1-5rm" type="button" name="intent" value="logout"  onClick={handleLogout}>Logout</button></li>
                 </div>
             </ul>
         </nav>
-        {/* Navbar Here <br/>
-        {username}
-        <Outlet/> */}
+        <Outlet/>
     </div>
     )
 }

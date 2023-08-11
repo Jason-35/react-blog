@@ -1,8 +1,6 @@
 import { User } from "../entities/User"
 import { Request, Response } from 'express';
-
 import bcrypt from 'bcrypt';
-import session from "express-session";
 
 /**
  * Encrypting the user's password
@@ -69,7 +67,7 @@ export const login = async(req: Request, res: Response): Promise<void> => {
             await User.save({
                 ...user,
             })
-            console.log(req.sessionID)
+            
             res.status(200).send(req.session)
         }else{
             res.status(401).json({error: "invalid", status: 401, valid: false})

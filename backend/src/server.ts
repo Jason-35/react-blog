@@ -2,6 +2,7 @@ require('dotenv').config()
 import express, { Express, NextFunction, Request, Response } from 'express';
 import * as user from '../controller/user-controller'
 import * as db from '../database/typeorm.config'
+import * as post from '../controller/post-controller'
 import cors from 'cors';
 import session from 'express-session';
 
@@ -22,7 +23,7 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
-    credentials: true,
+    credentials: true
   })
 );
 
@@ -53,6 +54,12 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
 app.post('/api/register', user.register)
 app.post('/api/login', user.login)
 app.post('/api/logout', user.logout)
+
+app.post('/api/createPost', isAuth, post.createPost)
+app.get('/api/getPost/:postId', isAuth, post.getPost)
+app.put('/api/updatePost/:postId', isAuth, post.updatePost)
+app.delete('/api/deletePost/:postId', isAuth, post.deletePost)
+app.get('/api/allPost', isAuth, post.allPost)
 
 app.get('/api/woo', isAuth, (req: Request, res: Response) => {
     res.send("hohohohoho")
