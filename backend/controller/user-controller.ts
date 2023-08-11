@@ -33,7 +33,7 @@ export const register = async(req: Request, res: Response): Promise<void> => {
     })
 
     try {
-        await user.save()
+        await User.insert(user)
         // create cookie and session id and save it to the db
         req.session.authenticated = true
         req.session.username = username
