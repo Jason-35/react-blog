@@ -1,17 +1,6 @@
 import { useLoaderData, useSearchParams } from "react-router-dom"
+import { postObject } from "../dto/post.dto";
 
-type UserObject = {
-    username: string
-}
-
-type postObject = {
-    id: number,
-    title: string,
-    content: string,
-    createdAt: string,
-    is_published: boolean
-    user: UserObject
-};
 
 export default function BrowsePage(){
     const [searchParams, setSearchParams] = useSearchParams()

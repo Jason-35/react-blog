@@ -7,12 +7,12 @@ import Homepage from './routes/Homepage.tsx';
 import Navbar from './routes/Navbar.tsx';
 import BlogCollection from './routes/BlogCollection.tsx';
 import BrowsePage from './routes/BrowsePage.tsx';
-import CommunityPage from './routes/CommunityPage.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { action as userAction } from "./actions/UserAction.tsx"
 // import Root, { loader as rootLoader } from "./routes/root";
 import { loader as userLoader } from "./loaders/UserLoader.tsx"
-import { loader as postLoader } from "./loaders/PostLoader.tsx"
+import { loader as allpostLoader } from "./loaders/AllPostLoader.tsx"
+import { loader as userpostLoader } from "./loaders/UserPostLoader.tsx"
 import './styles/Global.css'
 import './styles/Reuse.css'
 
@@ -49,18 +49,20 @@ const router = createBrowserRouter([
         element: <Homepage/>,
       },
       {
+        path: "home/:username/create",
+        element: <>creation</>,
+      },
+      {
         path: "home/:username/collection",
+        loader: userpostLoader,
         element: <BlogCollection/>,
       },
       {
         path: "home/browse",
-        loader: postLoader,
+        loader: allpostLoader,
         element: <BrowsePage/>,
       },
-      {
-        path: "home/community",
-        element: <CommunityPage/>,
-      }
+
       
     ]
   },

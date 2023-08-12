@@ -96,3 +96,20 @@ export const allPost = async ( req: Request, res: Response) => {
         res.status(404).json({error:"no post"})
     }
 }
+
+export const userPost = async ( req: Request, res: Response) => {
+    let page: number = Number(req.query.page) 
+
+    const userPost = await Post
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.user', 'user')
+    .select(['post', 'user.username'])
+    .where("post.user = :user", {user: req.session.username})
+    .getMany();
+
+    if(userPost){
+        res.status(200).send({slicedPosts: userPost.slice(page * 5 - 5, page * 5), maxLength: Math.ceil(userPost.length/5)})
+    }else{
+        res.status(404).json({error: "no post"})
+    }
+}

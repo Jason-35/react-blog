@@ -60,6 +60,7 @@ app.get('/api/getPost/:postId', isAuth, post.getPost)
 app.put('/api/updatePost/:postId', isAuth, post.updatePost)
 app.delete('/api/deletePost/:postId', isAuth, post.deletePost)
 app.get('/api/allPost', isAuth, post.allPost)
+app.get('/api/userPost', isAuth, post.userPost)
 
 app.get('/api/woo', isAuth, (req: Request, res: Response) => {
     res.send("hohohohoho")
