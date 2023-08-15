@@ -28,7 +28,7 @@ export async function action({ request } : {request: Request}) {
         }else{
             localStorage.setItem("authenticated", result.authenticated)
             localStorage.setItem("username", result.username)
-            return redirect(`/home/${result.username}`)
+            return redirect(`/home/browse?page=1`)
         }
     }
     else if(intent === 'login')
@@ -52,7 +52,7 @@ export async function action({ request } : {request: Request}) {
         }else{
             localStorage.setItem("authenticated", result.authenticated)
             localStorage.setItem("username", result.username)
-            return redirect(`/home/${result.username}`)
+            return redirect(`/home/browse?page=1`)
         }
     }else
     {

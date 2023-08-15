@@ -1,0 +1,42 @@
+.collection-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-collection-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.empty-collection {
+    color: black;
+}
+
+.no-collection-text {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.collection-post {
+    display: flex;
+    align-items: center;
+    color: black;
+    width: 40%;
+    height: 15%;
+    margin: 1rem 0rem 1rem 0rem;
+    justify-content: space-evenly;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.collection-post:hover {
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+}

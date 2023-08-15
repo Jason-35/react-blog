@@ -88,10 +88,12 @@ export const allPost = async ( req: Request, res: Response) => {
     .createQueryBuilder('post')
     .leftJoinAndSelect('post.user', 'user')
     .select(['post', 'user.username']) // Select the post and username columns
+    .orderBy("post.id",'DESC')
+    .where("post.published = :publish" , {publish: true})
     .getMany();
     
     if(postsWithUsernames){
-        res.status(200).send({slicedPosts: postsWithUsernames.slice(page * 5 - 5, page * 5), maxLength: Math.ceil(postsWithUsernames.length/5)})
+        res.status(200).send({slicedPosts: postsWithUsernames.slice(page * 4 - 4, page * 4), maxLength: Math.ceil(postsWithUsernames.length/4)})
     }else{
         res.status(404).json({error:"no post"})
     }
