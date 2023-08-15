@@ -22,7 +22,7 @@ db.connectDB(process.env.MYSQL_USERNAME, process.env.MYSQL_PASSWORD, process.env
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "DELETE"],
     credentials: true
   })
 );
@@ -63,7 +63,7 @@ app.get('/api/allPost', isAuth, post.allPost)
 app.get('/api/userPost', isAuth, post.userPost)
 
 app.get('/api/woo', isAuth, (req: Request, res: Response) => {
-    res.send("hohohohoho")
+    res.send(req.session)
 })
 
 // Hosting

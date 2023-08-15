@@ -45,12 +45,14 @@ export const deletePost = async(req: Request, res: Response) => {
 
 export const getPost = async(req: Request, res: Response) => {
     const postId = req.params.postId 
-    console.log(req.query.page)
-    const post = await Post.findOne({
-        where: {
-            id: parseInt(postId)
-        }
-    })
+
+    const post = await Post
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.user', 'user')
+    .select(['post', 'user.username'])
+    .where("post.id = :id" , {id: postId})
+    .getOne();
+
 
     if(post){
         res.send(post)
@@ -68,6 +70,7 @@ export const updatePost = async(req: Request, res: Response) => {
             id: parseInt(postId)
         }
     })
+
 
     if(post){
         post.title = title

@@ -1,4 +1,4 @@
-import { useLoaderData, useSearchParams } from "react-router-dom"
+import { useLoaderData, useSearchParams, useNavigate } from "react-router-dom"
 import { postObject } from "../dto/post.dto";
 import "../styles/BrowsePage.css"
 import { Button } from "@mui/material";
@@ -7,11 +7,12 @@ export default function BrowsePage(){
     const [searchParams, setSearchParams] = useSearchParams()
     const page = Number(searchParams.get('page'))
     const { postData, maxLength } = useLoaderData() as { postData: postObject[], maxLength: number};
+    const navigate = useNavigate()
     return(
             <div className="post-container">
                 <div className="browse-text">Browse Around</div>                
                 { postData.map((item: postObject) => (
-                <div className="post-card" key={item.id} onClick={() => {console.log(item.id)}}>
+                <div className="post-card" key={item.id} onClick={() => navigate(`/post/${item.id}`)}>
                     <div>
                         {item.title}
                     </div>

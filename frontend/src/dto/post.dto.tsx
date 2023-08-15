@@ -10,3 +10,4 @@ export type postObject = {
     is_published: boolean
     user: UserObject
 };
+    

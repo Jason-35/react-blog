@@ -7,12 +7,14 @@ import Navbar from './routes/Navbar.tsx';
 import BlogCollection from './routes/BlogCollection.tsx';
 import BrowsePage from './routes/BrowsePage.tsx';
 import CreateBlog from './routes/CreateBlog.tsx';
+import ViewPost from './routes/ViewPost.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { action as userAction } from "./actions/UserAction.tsx"
 import { action as postAction } from "./actions/PostAction.tsx"
 import { loader as userLoader } from "./loaders/UserLoader.tsx"
 import { loader as allpostLoader } from "./loaders/AllPostLoader.tsx"
 import { loader as userpostLoader } from "./loaders/UserPostLoader.tsx"
+import { loader as viewpostLoader } from "./loaders/ViewPostLoader.tsx"
 import './styles/Global.css'
 import './styles/Reuse.css'
 
@@ -38,7 +40,7 @@ const router = createBrowserRouter([
     element: <Navbar/>,
     loader: userLoader,
     action: userAction,
-    errorElement: <>Error no access here boi</>,
+    errorElement: <>Error no access here</>,
     children: [
       {
         path: "home/:username/create",
@@ -48,6 +50,7 @@ const router = createBrowserRouter([
       {
         path: "home/:username/collection",
         loader: userpostLoader,
+        action: postAction,
         element: <BlogCollection/>,
       },
       {
@@ -55,8 +58,11 @@ const router = createBrowserRouter([
         loader: allpostLoader,
         element: <BrowsePage/>,
       },
-
-      
+      {
+        path: "/post/:postId",
+        loader: viewpostLoader,
+        element: <ViewPost/>,
+      },
     ]
   },
 ]);
