@@ -3,8 +3,10 @@ import { Form } from "react-router-dom"
 import 'react-quill/dist/quill.snow.css';
 import Button from '@mui/material/Button';
 import "../styles/CreateBlog.css"   
+import { useState } from 'react'
 
 export default function CreateBlog(){
+    const [textValue, setTextValue] = useState("")
     return(
     <div className="blog-container">
         <Form className="blog-form" method="post">
@@ -17,6 +19,8 @@ export default function CreateBlog(){
                         className="blog-title-text"
                         sx={{backgroundColor: 'white', borderRadius: '3px'}}
                         required={true}
+                        value={textValue}
+                        onChange={(e) => setTextValue(e.target.value)}
                     />
             </div>
             <div className="blog-content" style={{color: "black"}}>

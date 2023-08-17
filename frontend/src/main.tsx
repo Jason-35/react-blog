@@ -8,9 +8,11 @@ import BlogCollection from './routes/BlogCollection.tsx';
 import BrowsePage from './routes/BrowsePage.tsx';
 import CreateBlog from './routes/CreateBlog.tsx';
 import ViewPost from './routes/ViewPost.tsx';
+import EditBlog from './routes/EditBlog.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { action as userAction } from "./actions/UserAction.tsx"
 import { action as postAction } from "./actions/PostAction.tsx"
+import { action as commentAction } from "./actions/CommentAction.tsx"
 import { loader as userLoader } from "./loaders/UserLoader.tsx"
 import { loader as allpostLoader } from "./loaders/AllPostLoader.tsx"
 import { loader as userpostLoader } from "./loaders/UserPostLoader.tsx"
@@ -61,7 +63,14 @@ const router = createBrowserRouter([
       {
         path: "/post/:postId",
         loader: viewpostLoader,
+        action: commentAction,
         element: <ViewPost/>,
+      },
+      {
+        path: ":username/post/:postId/edit",
+        loader: viewpostLoader,
+        action: postAction,
+        element: <EditBlog/>,
       },
     ]
   },

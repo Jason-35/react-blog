@@ -3,6 +3,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import * as user from '../controller/user-controller'
 import * as db from '../database/typeorm.config'
 import * as post from '../controller/post-controller'
+import * as comment from '../controller/comment-controller'
 import cors from 'cors';
 import session from 'express-session';
 
@@ -62,10 +63,8 @@ app.delete('/api/deletePost/:postId', isAuth, post.deletePost)
 app.get('/api/allPost', isAuth, post.allPost)
 app.get('/api/userPost', isAuth, post.userPost)
 
-app.get('/api/woo', isAuth, (req: Request, res: Response) => {
-    res.send(req.session)
-})
-
+app.post('/api/createComment', isAuth, comment.createComment)
+app.get('/api/getComment/:postId', isAuth, comment.getPostComment)
 // Hosting
 app.listen(process.env.HOST, ()=>{
     console.log(`Hosting on PORT ${process.env.HOST}`)

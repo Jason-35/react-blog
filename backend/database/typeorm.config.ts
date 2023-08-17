@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm"
 import { User } from "../entities/User"
 import { Post } from "../entities/Post"
+import { Comment } from "../entities/Comment"
 export const connectDB = (username: string, password: string, database: string): void => {
     const AppDataSource: DataSource = new DataSource({
         type: "mysql",
@@ -9,7 +10,7 @@ export const connectDB = (username: string, password: string, database: string):
         username: username,
         password: password,
         database: database,
-        entities: [User, Post],
+        entities: [User, Post, Comment],
         synchronize: true,
     })
 

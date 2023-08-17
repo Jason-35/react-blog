@@ -10,4 +10,11 @@ export type postObject = {
     is_published: boolean
     user: UserObject
 };
-    
+
+export type commentObject = {
+    id: number,
+    comment: string,
+    createdAt: string,
+    user: UserObject
+}
+

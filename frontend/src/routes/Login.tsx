@@ -2,7 +2,6 @@ import { Form, Link, useActionData } from "react-router-dom"
 import '../styles/Login.css'
 import TextField from "@mui/material/TextField/TextField"
 import { Alert } from "@mui/material"
-// import { useState } from 'react'
 
 export default function Login(){
     const data = useActionData() as {invalid: boolean}

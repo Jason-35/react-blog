@@ -1,30 +1,25 @@
-import { Form, useLoaderData, useSearchParams } from "react-router-dom"
+import { Form, useLoaderData, useSearchParams, useNavigate } from "react-router-dom"
 import { postObject } from "../dto/post.dto";
 import { Button } from "@mui/material";
 import "../styles/CollectionPage.css"
 import sadImage from "../assets/sad.jpg"
 import trashcan from "../assets/delete.png"
-// import axios from "axios";
+
 
 export default function BlogCollection(){
     
     const [searchParams, setSearchParams] = useSearchParams()
     const page = Number(searchParams.get('page'))
     const { postData, maxLength } = useLoaderData() as { postData: postObject[], maxLength: number};
-
-    // const handleDeletePost = async(postId : number) => {
-    //     await axios.delete(`http://localhost:4000/api/deletePost/${postId}`, { withCredentials: true}).catch((error) => {
-    //         console.log(error)
-    //     })
-    // }
-    
+    const navigate = useNavigate()
+    const user = localStorage.getItem("username")
     return(
             <div className="collection-container">
                 {postData.length !== 0 ? <div className="browse-text">Your Collection</div> : <></>}
                 {postData.length !== 0 ? 
                     <div className="inner-collection-container">
                     { postData.map((item: postObject) => (
-                    <div className="collection-post" key={item.id}>
+                    <div className="collection-post" key={item.id} onClick={() => navigate(`/${user}/post/${item.id}/edit`)}>
                         <div>
                             <div>
                                 {item.title}

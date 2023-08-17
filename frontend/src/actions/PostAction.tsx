@@ -10,8 +10,6 @@ export async function action({ request } : {request: Request}) {
 
     const user = localStorage.getItem('username')
 
-    console.log(intent)
-
     if (intent === "save"){
         const publish = false
         const data = {
@@ -42,7 +40,25 @@ export async function action({ request } : {request: Request}) {
         console.log(postId)
         return null
     }
-    else{
+    else if (intent.includes("update")){
+        const postId = intent.split("-")[1]
+        let publish = false
+        const EditPublish = formData.get("edit-publish")
+        if(EditPublish){
+            publish = true
+        }
+        const data = {
+            title: title,
+            content: content,
+            is_published: publish
+        }
+        await axios.put(`http://localhost:4000/api/updatePost/${postId}`, data, { withCredentials: true}).catch((error) => {
+            console.log(error)
+        })
+        return null
+    }
+    else
+    {
         return null
     }
 }

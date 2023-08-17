@@ -7,5 +7,11 @@ export async function loader({ params } : {params : Params}){
         throw error
     })
 
-    return post.data
+    console.log(post.data)
+
+    const comment = await axios.get(`http://localhost:4000/api/getComment/${postId}`, { withCredentials: true}).catch((error) => {
+        throw error
+    })
+    
+    return { postData: post.data, commentData: comment.data}
 }
