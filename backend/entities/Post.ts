@@ -25,7 +25,8 @@ export class Post extends BaseEntity{
 
     @OneToMany(
         () => Comment,
-        comment => comment.post
+        comment => comment.post,
+        { cascade: true}
     )
     comment: Comment
 

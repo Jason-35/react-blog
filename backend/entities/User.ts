@@ -12,13 +12,15 @@ export class User extends BaseEntity{
 
   @OneToMany(
     () => Post,
-    post => post.user
+    post => post.user,
+    { cascade: true}
   )
   post: Post[]
 
   @OneToMany(
     () => Comment,
-    comment => comment.user
+    comment => comment.user,
+    { cascade: true}
   )
   comment: Comment[]
 

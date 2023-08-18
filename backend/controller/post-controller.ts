@@ -37,8 +37,10 @@ export const deletePost = async(req: Request, res: Response) => {
 
     try {
         await Post.remove(post)
+        console.log("run1")
         res.send("deleted")
     } catch (error) {
+        console.log(error)
         res.send("some error happened")
     }
 }

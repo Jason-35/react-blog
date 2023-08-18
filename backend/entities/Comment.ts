@@ -17,7 +17,8 @@ export class Comment extends BaseEntity{
 
     @ManyToOne(
         () => User,
-        user => user.post
+        user => user.post,
+        { onDelete: "CASCADE"}
     )
 
     @JoinColumn({
@@ -27,7 +28,8 @@ export class Comment extends BaseEntity{
 
     @ManyToOne(
         () => Post,
-        post => post.comment
+        post => post.comment,
+        { onDelete: "CASCADE"}
     )
 
     @JoinColumn({

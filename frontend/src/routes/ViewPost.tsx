@@ -8,7 +8,6 @@ export default function ViewPost(){
     const { postData, commentData } = useLoaderData() as { postData: postObject, commentData: commentObject[] }
     const [textValue, setTextValue] = useState("")
 
-    console.log(postData.content)
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault
         setTextValue("")
